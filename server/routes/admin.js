@@ -4,8 +4,8 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt  = require('jsonwebtoken');
-// const multer = require('multer');
-// const fs = require('fs');
+ const multer = require('multer');
+ const fs = require('fs');
 
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
@@ -116,18 +116,18 @@ router.get('/add-post' ,authMiddleware, async (req ,res) => {
 
 })
 
-// const path = require('path')
-//
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/img');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + path.extname(file.originalname));
-//     }
-// });
+const path = require('path')
 
-// const upload = multer({ storage });
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/img');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage });
 
 
 router.post('/add-post'  ,authMiddleware, async (req ,res) => {
